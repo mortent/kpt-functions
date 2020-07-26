@@ -20,7 +20,7 @@ export PROMPT_TIMEOUT=3
 ########################
 . demo-magic.sh
 
-rm -fr output
+(cd ..; make build)
 
 # hide the evidence
 clear
@@ -33,35 +33,29 @@ normal=$(tput sgr0)
 # start demo
 clear
 p "# we have two kpt packages"
-pe "ls -d */"
+pe "(cd ../example;ls -d */)"
 p ""
 wait
 
 
 p "# package foo contains two resources and includes setters and substitutions"
-pe "cat foo/foo.yaml"
-pe "cat foo/bar.yaml"
-pe "kpt cfg list-setters foo --include-subst"
+pe "cat ../example/modules/foo/foo.yaml"
+pe "cat ../example/modules/foo/bar.yaml"
+pe "kpt cfg list-setters ../example/modules/foo --include-subst"
 p ""
 wait
 
 p "# package my-pkg contains two LocalPackage resources that both reference the foo package but with different setter values"
-pe "kpt cfg tree my-pkg"
-pe "cat my-pkg/minnesota-pkg.yaml"
-pe "cat my-pkg/washington-pkg.yaml"
+pe "kpt cfg tree ../example/my-pkg"
+pe "cat ../example/my-pkg/minnesota-pkg.yaml"
+pe "cat ../example/my-pkg/washington-pkg.yaml"
 p ""
 wait
 
 p "# running the localpkg-fn kpt function replaces the LocalPackage resources with the output of package foo after using the setters"
-pe "mkdir output"
-pe "kpt fn source my-pkg | kpt fn run --enable-exec --exec-path ./localpkg-fn | kpt fn sink output"
+pe "(cd ../example; kpt fn source my-pkg | kpt fn run --enable-exec --exec-path ../localpackage-fn | kpt fn sink)"
 p ""
 wait
-
-p "# the output has two version of the Foo resource and two versions of the Bar resource"
-pe "kpt cfg tree output"
-pe "cat output/foo.yaml"
-pe "cat output/bar.yaml"
 
 
 

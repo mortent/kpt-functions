@@ -3,7 +3,7 @@ kind: LocalPackage
 metadata:
   name: washington-pkg
 spec:
-  path: ./foo
+  path: ./modules/foo
   setters:
     pkg-name: washington
     band-name: Sleater-Kinney
