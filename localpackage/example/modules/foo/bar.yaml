@@ -1,0 +1,6 @@
+apiVersion: example.com/v1alpha1
+kind: Bar
+metadata:
+  name: PKG_NAME-bar # {"$kpt-set":"var-name"}
+spec:
+  replicas: 1

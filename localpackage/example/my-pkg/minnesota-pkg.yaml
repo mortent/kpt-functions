@@ -1,0 +1,9 @@
+apiVersion: config.k8s.io
+kind: LocalPackage
+metadata:
+  name: minnesota-pkg
+spec:
+  path: ./foo
+  setters:
+    pkg-name: minnesota
+    band-name: Husker Dü

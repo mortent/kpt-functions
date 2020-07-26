@@ -1,0 +1,6 @@
+apiVersion: example.com/v1alpha1
+kind: Foo
+metadata:
+  name: PKG_NAME-foo # {"$kpt-set":"foo-name"}
+spec:
+  band: Sonic Youth # {"$kpt-set":"band-name"}

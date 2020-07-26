@@ -1,0 +1,34 @@
+apiVersion: kpt.dev/v1alpha1
+kind: Kptfile
+metadata:
+  name: foo
+packageMetadata:
+  shortDescription: sample description
+openAPI:
+  definitions:
+    io.k8s.cli.setters.band-name:
+      x-k8s-cli:
+        setter:
+          name: band-name
+          value: Sonic Youth
+    io.k8s.cli.substitutions.foo-name:
+      x-k8s-cli:
+        substitution:
+          name: foo-name
+          pattern: ${pkg-name}-foo
+          values:
+          - marker: ${pkg-name}
+            ref: '#/definitions/io.k8s.cli.setters.pkg-name'
+    io.k8s.cli.setters.pkg-name:
+      x-k8s-cli:
+        setter:
+          name: pkg-name
+          value: PKG_NAME
+    io.k8s.cli.substitutions.var-name:
+      x-k8s-cli:
+        substitution:
+          name: var-name
+          pattern: ${pkg-name}-bar
+          values:
+          - marker: ${pkg-name}
+            ref: '#/definitions/io.k8s.cli.setters.pkg-name'
